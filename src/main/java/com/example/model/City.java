@@ -37,6 +37,4 @@ public class City {
         this.brand = brand;
     }
 
-
-    // other getters and setters are hidden for brevity
 }

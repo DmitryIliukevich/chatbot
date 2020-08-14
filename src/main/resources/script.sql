@@ -1,5 +1,5 @@
 create database chat_bot;
-create table city
+create table chat_bot.city
 (
     id    int auto_increment
         primary key,

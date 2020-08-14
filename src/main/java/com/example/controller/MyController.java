@@ -14,41 +14,34 @@ import java.util.List;
 
 @Controller
 public class MyController {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MyController.class);
-
     @Autowired
     private CityService service;
 
     @RequestMapping("/")
     public String viewHomePage(Model model) {
-        log.info("!!!!");
         List<City> listCities = service.listAll();
-        log.info("@@"+ listCities.size());
         model.addAttribute("listCities", listCities);
-
         return "index";
     }
     @RequestMapping("/new")
     public String showNewCityPage(Model model) {
         City city = new City();
         model.addAttribute("city", city);
-
         return "new_city";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveCity(@ModelAttribute("product") City city) {
         service.save(city);
-
         return "redirect:/";
     }
+
     @RequestMapping("/edit/{id}")
     public ModelAndView showEditCityPage(@PathVariable(name = "id") int id) {
-        ModelAndView mav = new ModelAndView("edit_city");
+        ModelAndView modelAndView = new ModelAndView("edit_city");
         City city = service.get(id);
-        mav.addObject("city", city);
-
-        return mav;
+        modelAndView.addObject("city", city);
+        return modelAndView;
     }
 
     @RequestMapping("/delete/{id}")
@@ -56,7 +49,4 @@ public class MyController {
         service.delete(id);
         return "redirect:/";
     }
-
-
-    // handler methods...
 }

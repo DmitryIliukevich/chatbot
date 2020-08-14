@@ -7,27 +7,27 @@
 </head>
 <body>
 <div align="center">
-    <h1>City List</h1>
-    <a href="new">Create New City</a>
+    <h1>Список городов</h1>
+    <a href="new">Добавить новый город</a>
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Action</th>
+            <th>Город</th>
+            <th>Сообщение</th>
+            <th>Действие</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="city : ${listCities}">
             <td th:text="${city.id}">ID</td>
-            <td th:text="${city.name}">Name</td>
-            <td th:text="${city.brand}">Brand</td>
+            <td th:text="${city.name}">Город</td>
+            <td th:text="${city.brand}">Сообщение</td>
             <td>
-                <a th:href="@{'/edit/' + ${city.id}}">Edit</a>
+                <a th:href="@{'/edit/' + ${city.id}}">Редактировать</a>
                 &nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/delete/' + ${city.id}}">Delete</a>
+                <a th:href="@{'/delete/' + ${city.id}}">Удалить</a>
             </td>
         </tr>
         </tbody>

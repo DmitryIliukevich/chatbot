@@ -15,11 +15,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Autowired
     private CityService service;
 
-    /**
-     * Метод для настройки сообщения и его отправки.
-     * @param chatId id чата
-     * @param s Строка, которую необходимот отправить в качестве сообщения.
-     */
     public synchronized void sendMsg(String chatId, String s) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -32,32 +27,34 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
-
-
     @Override
     public void onUpdateReceived(Update update) {
     }
 
     @Override
     public void onUpdatesReceived(List<Update> updates) {
-        Update update = updates.get(0);
-        String message = update.getMessage().getText();
-        String brand = service.findBrand(message);
-        if (brand != null) {
-            sendMsg(update.getMessage().getChatId().toString(), brand);
-        } else {
-            sendMsg(update.getMessage().getChatId().toString(), "Нет такого города!");
+        if (updates != null && !updates.isEmpty()) {
+            Update update = updates.get(0);
+            String message = update.getMessage().getText();
+            if (!message.contains("start")) {
+                String brand = service.findBrand(message);
+                if (brand != null) {
+                    sendMsg(update.getMessage().getChatId().toString(), brand);
+                } else {
+                    sendMsg(update.getMessage().getChatId().toString(), "Информации по этому городу нет!");
+                }
+            }
         }
     }
 
     @Override
     public String getBotUsername() {
-        return "DimaTouristBot";
+        return "SimpleTouristChatBot";
     }
 
     @Override
     public String getBotToken() {
-        return "1096493355:AAH5BzkCyVgZUPAD-EoK7qdvvY4W0oLtcsA";
+        return "1139858792:AAFDt1hDGncht74FS2sltjCNFbGh2Qxp7qQ";
     }
 
 }
